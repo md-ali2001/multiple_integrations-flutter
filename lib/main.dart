@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:http/http.dart' as http;
+import 'package:emailjs/emailjs.dart';
+import 'emailjs credentials.dart';
 
 void main() {
   runApp(const MyApp());
@@ -100,7 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(onPressed: () {
               send();
-            }, child: Text("SEND EMAIL"))
+            }, child: Text("SEND EMAIL (not directly from app)")),
+            ElevatedButton(onPressed: () {
+              sendemailjs();
+            }, child: Text("SEND EMAIL emailjs"))
 
           ],
         ),
@@ -108,6 +116,25 @@ class _MyHomePageState extends State<MyHomePage> {
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+  Future<int> sendemailjs() async
+  {
+final url=Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+final response=await http.post(url,headers: {'Content-Type':'application/json',"origin": "http://localhost"},body: json.encode({"service_id":serviceid,
+"template_id":templateid,
+"user_id":userid,
+"template_params":{
+"reciever":"md.ali2001@hotmail.com"
+}
+
+
+}
+));
+return response.statusCode;
+}
+
+}
+
+
 
   Future<void> send() async {
     final Email email = Email(
@@ -128,4 +155,3 @@ class _MyHomePageState extends State<MyHomePage> {
       platformResponse = error.toString();
     }
   }
-}
