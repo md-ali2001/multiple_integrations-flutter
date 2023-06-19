@@ -37,7 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_email_sender: ^6.0.0
   emailjs: ^1.1.0
-  http: ^1.0.0
+  http: ^0.13.5
+  google_maps_flutter: ^2.3.1
 
 dev_dependencies:
   flutter_test:

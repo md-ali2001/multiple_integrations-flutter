@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:http/http.dart' as http;
 import 'package:emailjs/emailjs.dart';
+import 'package:multiple_integrations/googlemaps.dart';
 import 'emailjs credentials.dart';
 
 void main() {
@@ -108,7 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
             }, child: Text("SEND EMAIL (not directly from app)")),
             ElevatedButton(onPressed: () {
               sendemailjs();
-            }, child: Text("SEND EMAIL emailjs"))
+            }, child: Text("SEND EMAIL emailjs")),
+            ElevatedButton(onPressed: () {
+              googlemap();
+            }, child: Text("google map"))
 
           ],
         ),
@@ -132,10 +136,6 @@ final response=await http.post(url,headers: {'Content-Type':'application/json',"
 return response.statusCode;
 }
 
-}
-
-
-
   Future<void> send() async {
     final Email email = Email(
         body: "amplifier",
@@ -155,3 +155,16 @@ return response.statusCode;
       platformResponse = error.toString();
     }
   }
+
+  void googlemap()
+  {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const googlemaps()));
+  }
+
+}
+
+
+
+
